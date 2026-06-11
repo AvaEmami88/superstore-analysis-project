@@ -1,0 +1,24 @@
+{'regression': {}, 'knn': {'k = 3': 0.9299649824912456, 'k = 5': 0.9299649824912456, 'k = 7': 0.9349674837418709}, 'sales_analysis': {'top_products': Product Name
+Canon imageCLASS 2200 Advanced Copier                                          25199.9280
+Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind     7753.0390
+Hewlett Packard LaserJet 3310 Copier                                            6983.8836
+Canon PC1060 Personal Laser Copier                                              4570.9347
+HP Designjet T520 Inkjet Large Format Printer - 24" Color                       4094.9766
+Ativa V4110MDD Micro-Cut Shredder                                               3772.9461
+Name: Profit, dtype: float64, 'sales_by_region':     Region        Sales
+0  Central  501239.8908
+1     East  678781.2400
+2    South  391721.9050
+3     West  725457.8245, 'monthly_trend':     Month        Sales
+0       1  137587.1322
+1       2  120374.9094
+2       3  237482.7502
+3       4  154316.7811
+4       5  175243.4649
+5       6  146105.1243
+6       7  149362.7248
+7       8  207760.1943
+8       9  266109.7397
+9      10  177756.4052
+10     11  271461.7345
+11     12  253639.8997}}
