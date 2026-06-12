@@ -19,22 +19,22 @@ class Visualizer:
         plt.ylabel('Sales')
         plt.legend()
         plt.show()
-        # monthly_sorted = monthly_data.sort_values('Month').reset_index(drop=True)
-        # plt.figure(figsize=(12, 6))
-        # plt.plot(monthly_data['Month'], monthly_data['Sales'],label='Actual Sales',color='black')
-        # plt.plot(monthly_data['Month'][:len(linear_pred)], linear_pred,label='Linear Regression', color='blue')
-        # plt.plot(monthly_data['Month'][:len(poly_pred)], poly_pred, label='Poly(degree=2)', color='red')
-        # plt.plot(monthly_data['Month'][:len(poly_pred)],poly_pred,label ='Poly(degree=3)' , color = 'purple')
-        # plt.title('Actual vs linear vs polynomial regressions', fontsize=14)
-        # plt.xlabel('Month', fontsize=12)
-        # plt.ylabel('Sales', fontsize=12)
-        # plt.show()
 
 
-    def plot_knn_boundary(self,x,y):
-        DecisionBoundaryDisplay.from_estimator(self.model,x, response_method="predict")
-        plt.scatter(x[:, 0], x[:, 1], c=y)
-        plt.title(f'KNN marz = {self.model.n_neighbors})')
+    def plot_knn_boundary(self,model,scaler,x,y):
+        x_scaled = scaler.transform(x)
+        x_min, x_max = x_scaled[:, 0].min() - 0.5, x_scaled[:, 0].max() + 0.5
+        y_min, y_max = x_scaled[:, 1].min() - 0.5, x_scaled[:, 1].max() + 0.5
+        xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02), np.arange(y_min, y_max, 0.02))
+        Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+        Z = Z.reshape(xx.shape)
+        plt.figure(figsize=(10, 8))
+        plt.contourf(xx, yy, Z, alpha=0.4, cmap='RdYlBu')
+        plt.scatter(x_scaled[:, 0], x_scaled[:, 1], c=y, cmap='RdYlBu', s=50)
+        plt.xlabel('Sales (scaled)')
+        plt.ylabel('Discount (scaled)')
+        plt.title(f'KNN Decision Boundary (k={model.n_neighbors})')
         plt.show()
+
     def export_for_powerbi(self, df, filename="data.csv"):
         df.to_csv('powerbi/' + filename, index=False)
