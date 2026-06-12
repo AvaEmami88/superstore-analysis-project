@@ -14,7 +14,7 @@ class SalesAnalyzer:
         plt.title("top products")
         plt.xlabel("product")
         plt.ylabel("Profit")
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=20)
         plt.show()
         return top
     
@@ -24,13 +24,12 @@ class SalesAnalyzer:
     
     def monthly_trend(self):
         monthly = self.df.groupby('Month')['Sales'].sum().reset_index()
-        
         return monthly
     
     def plot_summary(self):
-        self.sales_by_region = self.df.groupby('Region')['Sales'].sum()
+        sales_by_region = self.df.groupby('Region')['Sales'].sum()
         plt.figure(figsize=(10, 8))
-        plt.plot(self.sales_by_region.index,self.sales_by_region.values)
+        plt.plot(sales_by_region.index,sales_by_region.values)
         plt.title("Sales by region")
         plt.xlabel('region')
         plt.ylabel('sales')
@@ -45,19 +44,5 @@ class SalesAnalyzer:
         plt.xlabel('Month')
         plt.ylabel('Year')
         plt.show()
+        
 
-
-
-######### chart 4 pie chart sale be shahr
-# city_sales = clean_df.groupby('city')['revenue'].sum()
-# plt.figure(figsize=(10, 8))
-# plt.pie(city_sales.values,labels=city_sales.index,autopct='%1.1f%%')
-# plt.title("Sales by city")
-# plt.show()
-# plt.figure(figsize=(10, 6))
-#         plt.plot(monthly.index,monthly.values)
-#         plt.title('monthly sales')
-#         plt.xlabel('month')
-#         plt.ylabel('Sales')
-#         plt.xticks(range(1, 13)) 
-#         plt.show()
