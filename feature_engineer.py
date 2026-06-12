@@ -20,19 +20,17 @@ class FeatureEngineer:
         self.monthly_data = self.df.groupby(['Year', 'Month'])[['Sales', 'Profit']].sum().reset_index()
         return self.monthly_data
     
-    #***
+    #*******
     def feature_importance(self, target_column='Sales'):
         numeric_df = self.df.select_dtypes(include=['number'])
         correlations = numeric_df.corr()[target_column].drop(target_column).abs().sort_values(ascending=False)
         plt.figure(figsize=(10, 6))
         correlations.plot(kind='barh')
-        plt.xlabel(f'همبستگی با {target_column}')
-        plt.title(f'Feature Importance - همبستگی با {target_column}')
+        plt.xlabel(f'{target_column}')
+        plt.title(f'Feature Importance {target_column}')
         plt.gca().invert_yaxis()
         plt.tight_layout()
         plt.show()
         
         print(correlations)
         return correlations
-
-
