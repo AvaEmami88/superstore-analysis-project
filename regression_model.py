@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import mean_squared_error, r2_score
-
+import matplotlib.pyplot as plt 
 
 class RegressionModel:
     def __init__(self):
@@ -45,12 +45,9 @@ class RegressionModel:
     def evaluate_poly(self, degree):
         poly = self.poly_transformers[degree]
         model = self.poly_models[degree]
-
         x_test_poly = poly.transform(self.x_test_scaled)
-
         y_pred = model.predict(x_test_poly)
-
         r2 = r2_score(self.y_test, y_pred)
         mse = mean_squared_error(self.y_test, y_pred)
-
         return y_pred, r2, mse
+
