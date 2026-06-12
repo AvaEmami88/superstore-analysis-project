@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import cross_val_score
 class KNNClassifier:
     def __init__(self):
         self.model = None
@@ -38,6 +39,19 @@ class KNNClassifier:
     def accuracy(self) :
         y_pred = self.predict()
         acc = accuracy_score(self.y_test, y_pred)
-        print(f"دقت مدل:{acc:.4f}")
+        print(f"accuracy = {acc:.4f}")
         return acc
+    def cross_validate(self, x, y, k=5):
+        x_scaled = self.scaler.fit_transform(x)
+        results = {}
+    
+        knn = KNeighborsClassifier(n_neighbors=5)
+        scores = cross_val_score(knn, x_scaled, y, cv=k, scoring='accuracy')
+        results[5] = {'mean:': scores.mean(), 'std': scores.std()}
+        print(f"k={5} with Accuracy: {scores.mean():.4f} +- {scores.std():.4f}")
+    
+        best_k = max(results.keys(), key=lambda x: results[x]['mean'])
+        print(f" Best k = {best_k} with accuracy: {results[best_k]['mean']:.4f}")
+        
+        return results, best_k
 
